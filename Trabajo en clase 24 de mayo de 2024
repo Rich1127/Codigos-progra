@@ -1,0 +1,114 @@
+import random
+import string
+
+def generar_letra_aleatoria():
+    return random.choice(string.ascii_uppercase)
+
+def generar_palabra_dos_letras():
+    palabras = ['si', 'no', 'ir', 'de', 'el', 'un', 'al', 'ir', 'lo', 'ni', 'va', 'ya']
+    return random.choice(palabras)
+
+def generar_palabra_tres_letras():
+    palabras = ['sol', 'mar', 'pan', 'mes', 'rio', 'uva', 'pez', 'luz', 'feo', 'pez', 'pie']
+    return random.choice(palabras)
+
+def adivinar_letra():
+    letra_secreta = generar_letra_aleatoria()
+    intentos = 0
+
+    print("¡Bienvenido al nivel 1!")
+    print("Tienes que adivinar una letra mayúscula (A-Z). Tienes un máximo de 20 intentos.")
+
+    while intentos < 20:
+        letra_usuario = input("Adivina la letra (A-Z): ").upper()
+        intentos += 1
+        
+        if len(letra_usuario) != 1 or letra_usuario not in string.ascii_uppercase:
+            print("Por favor, ingresa una sola letra mayúscula de la A a la Z.")
+            continue
+        
+        if letra_usuario == letra_secreta:
+            print(f"¡Correcto! La letra era {letra_secreta}. Adivinaste en {intentos} intentos.")
+            return True
+        else:
+            print("Incorrecto. Intenta de nuevo.")
+
+    print(f"Lo siento, has agotado tus 20 intentos. La letra secreta era {letra_secreta}.")
+    return False
+
+def adivinar_palabra():
+    palabra_secreta = generar_palabra_dos_letras()
+    intentos = 0
+    max_intentos = 10
+
+    print("¡Bienvenido al nivel 2!")
+    print("Tienes que adivinar una palabra de dos letras que tenga algún significado. Tienes un máximo de 10 intentos.")
+
+    while intentos < max_intentos:
+        intento_usuario = input("Introduce tu adivinanza: ").lower()
+
+        if len(intento_usuario) != 2 or not intento_usuario.isalpha():
+            print("Por favor, introduce una palabra válida de dos letras.")
+            continue
+
+        intentos += 1
+
+        if intento_usuario == palabra_secreta:
+            print(f"¡Felicidades! Has adivinado la palabra secreta '{palabra_secreta}' en {intentos} intentos.")
+            return True
+        else:
+            print(f"Intento incorrecto. Te quedan {max_intentos - intentos} intentos.")
+
+    print(f"Lo siento, has agotado tus intentos. La palabra secreta era '{palabra_secreta}'.")
+    return False
+
+def adivinar_palabra_tres_letras():
+    palabra_secreta = generar_palabra_tres_letras()
+    intentos = 0
+    max_intentos = 10
+
+    print("¡Bienvenido al nivel 3!")
+    print("Tienes que adivinar una palabra de tres letras que tenga algún significado. Tienes un máximo de 10 intentos.")
+
+    while intentos < max_intentos:
+        intento_usuario = input("Introduce tu adivinanza: ").lower()
+
+        if len(intento_usuario) != 3 or not intento_usuario.isalpha():
+            print("Por favor, introduce una palabra válida de tres letras.")
+            continue
+
+        intentos += 1
+
+        if intento_usuario == palabra_secreta:
+            print(f"¡Felicidades! Has adivinado la palabra secreta '{palabra_secreta}' en {intentos} intentos.")
+            return True
+        else:
+            print(f"Intento incorrecto. Te quedan {max_intentos - intentos} intentos.")
+
+    print(f"Lo siento, has agotado tus intentos. La palabra secreta era '{palabra_secreta}'.")
+    return False
+
+def main():
+    nivel = 1
+    while True:
+        if nivel == 1:
+            if adivinar_letra():
+                nivel = 2
+            else:
+                break
+        elif nivel == 2:
+            if adivinar_palabra():
+                nivel = 3
+            else:
+                break
+        elif nivel == 3:
+            if adivinar_palabra_tres_letras():
+                nivel = 4
+            else:
+                break
+        else:
+            print("¡Has completado todos los niveles!")
+            break
+
+if __name__ == "__main__":
+    main()
